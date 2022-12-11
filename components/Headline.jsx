@@ -1,8 +1,9 @@
 import styles from '../styles/Home.module.css'
 
 export function Headline(props) {
-  const {fileName} = props;
-   
+  
+  const {fileName, children} = props;
+  console.log(props);
   return (
     <div className="Home__top">
         <h1 className={styles.title}>
@@ -11,7 +12,7 @@ export function Headline(props) {
 
         <p className={styles.description}>
           Get started by editing{' '}
-          <code className={styles.code}>pages/{fileName}.js</code>
+          {children}
         </p>
     </div>
   )
