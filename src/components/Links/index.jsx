@@ -1,4 +1,4 @@
-import styles from './Links.module.css'
+import styles from 'src/components/Links/Links.module.css'
 
 export function Links() {
   const KEY = () => Math.random().toString(32).substring(2);

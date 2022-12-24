@@ -1,9 +1,9 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import { Header } from '../components/Header.jsx'
-import { Main } from '../components/Main.jsx'
-import { Footer } from '../components/Footer.jsx'
+import styles from 'src/styles/Home.module.css'
+import { Header } from 'src/components/Header/index.jsx'
+import { Main } from 'src/components/Main/Main.jsx'
+import { Footer } from 'src/components/Footer/index.jsx'
 
 export default function Home() {
   return (

@@ -1,6 +1,6 @@
-import styles from './Main.module.css'
-import { Headline } from './Headline.jsx'
-import { Links } from './Links.jsx'
+import styles from 'src/components/Main/Main.module.css'
+import { Headline } from 'src/components/Headline/index.jsx'
+import { Links } from 'src/components/Links/index.jsx'
 
 export function Main(props) {
     const {fileName} = props
