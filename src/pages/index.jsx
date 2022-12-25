@@ -4,8 +4,16 @@ import styles from 'src/styles/Home.module.css'
 import { Header } from 'src/components/Header/index.jsx'
 import { Main } from 'src/components/Main/index.jsx'
 import { Footer } from 'src/components/Footer/index.jsx'
+import { useCallback } from 'react'
 
 export default function Home() {
+
+  const handleClick = useCallback((event) => {
+    console.log(event);
+    event.preventDefault();
+    alert(1);
+  },[]);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -14,6 +22,11 @@ export default function Home() {
       </Head>
 
       <Header />
+      <a 
+      href={"/about"}
+      onClick={handleClick}>
+        ボタン
+      </a>
 
       <Main fileName={"index"} />
       
