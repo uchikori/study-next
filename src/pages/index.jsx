@@ -8,7 +8,9 @@ import { useCallback, useEffect, useState } from 'react'
 
 export default function Home() {
 
-  const [ count, setCount] = useState(0);
+  const [ count, setCount ] = useState(0);
+  const [ text, setText ] = useState("");
+  const [isShow, setIsShow] = useState(true);
 
   // useCallbackは第二引数が空配列の場合、再生成しない
   const handleClick = useCallback((event) => {
@@ -19,6 +21,16 @@ export default function Home() {
       });
     }
   },[count]);
+
+  const handleChange = useCallback((event) => {
+    setText(event.target.value.trim());
+  },[text]);
+
+  const toggleShow = useCallback((event) => {
+    setIsShow((isShow) => {
+      return !isShow
+    });
+  },[isShow]);
 
   useEffect(() => {
     document.body.style.backgroundColor = "lightblue";
@@ -37,8 +49,10 @@ export default function Home() {
 
       <Header />
 
-      <h1>{ count }</h1>
-      <button onClick={handleClick}>ボタン</button>
+      { isShow ? <h1>{ count }</h1> : null }
+      <button onClick={ handleClick }>ボタン</button>
+      <button onClick={ toggleShow }>{ isShow ? "非表示" : "表示" }</button>
+      <input type="text" value={ text } onChange={ handleChange } />
 
       <Main fileName={"index"} />
       
