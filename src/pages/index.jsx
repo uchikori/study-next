@@ -4,7 +4,7 @@ import styles from 'src/styles/Home.module.css'
 import { Header } from 'src/components/Header/index.jsx'
 import { Main } from 'src/components/Main/index.jsx'
 import { Footer } from 'src/components/Footer/index.jsx'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 
 export default function Home() {
 
@@ -14,6 +14,17 @@ export default function Home() {
     alert(1);
   },[]);
 
+  useEffect(() => {
+    console.log("マウント時");
+    document.body.style.backgroundColor = "lightblue";
+
+    //アンマウント(コンポーネントが消滅)時の処理
+    return () => {
+      console.log("アンマウント時");
+      document.body.style.backgroundColor = "";
+    }
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -22,11 +33,8 @@ export default function Home() {
       </Head>
 
       <Header />
-      <a 
-      href={"/about"}
-      onClick={handleClick}>
-        ボタン
-      </a>
+
+      <a href="" onClick={handleClick}>ボタン</a>
 
       <Main fileName={"index"} />
       
