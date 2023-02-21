@@ -10,11 +10,15 @@ export default function Home() {
 
   const [ count, setCount] = useState(0);
 
-  const handleClick = (event) => {
-    setCount((count) => {
-      return count + 1;
-    });
-  };
+  // useCallbackは第二引数が空配列の場合、再生成しない
+  const handleClick = useCallback((event) => {
+    console.log(count);
+    if(count < 10){
+      setCount((count) => {
+        return count + 1;
+      });
+    }
+  },[count]);
 
   useEffect(() => {
     document.body.style.backgroundColor = "lightblue";
@@ -22,7 +26,7 @@ export default function Home() {
     return () => {
       document.body.style.backgroundColor = "";
     }
-  }, []);
+  }, [count]);
 
   return (
     <div className={styles.container}>
