@@ -4,23 +4,22 @@ import styles from 'src/styles/Home.module.css'
 import { Header } from 'src/components/Header/index.jsx'
 import { Main } from 'src/components/Main/index.jsx'
 import { Footer } from 'src/components/Footer/index.jsx'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 export default function Home() {
 
-  const handleClick = useCallback((event) => {
-    console.log(event);
-    event.preventDefault();
-    alert(1);
-  },[]);
+  const [ count, setCount] = useState(0);
+
+  const handleClick = (event) => {
+    setCount((count) => {
+      return count + 1;
+    });
+  };
 
   useEffect(() => {
-    console.log("マウント時");
     document.body.style.backgroundColor = "lightblue";
-
     //アンマウント(コンポーネントが消滅)時の処理
     return () => {
-      console.log("アンマウント時");
       document.body.style.backgroundColor = "";
     }
   }, []);
@@ -34,7 +33,8 @@ export default function Home() {
 
       <Header />
 
-      <a href="" onClick={handleClick}>ボタン</a>
+      <h1>{ count }</h1>
+      <button onClick={handleClick}>ボタン</button>
 
       <Main fileName={"index"} />
       
