@@ -2,7 +2,7 @@ import styles from 'src/components/Headline/Headline.module.css'
 
 export function Headline(props) {
   
-  const {fileName, children} = props;
+  const {fileName, children, handleReduce } = props;
   
   return (
     <div className="Home__top">
@@ -14,6 +14,7 @@ export function Headline(props) {
           Get started by editing{' '}
           {children}
         </p>
+        <button onClick={handleReduce}>減らす</button>
     </div>
   )
 }
