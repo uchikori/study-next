@@ -4,58 +4,16 @@ import styles from 'src/styles/Home.module.css'
 import { Header } from 'src/components/Header/index.jsx'
 import { Main } from 'src/components/Main/index.jsx'
 import { Footer } from 'src/components/Footer/index.jsx'
-import { useCallback, useEffect, useState } from 'react'
+import { useCounter } from 'src/hooks/useCounter'
+import { useInputArray } from 'src/hooks/useInputArray'
+import { useBgLightBlue } from 'src/hooks/useBgLightBlue'
 
 export default function Home() {
+  //カスタムフックの呼び出し
+  const { count, isShow, handleClick, toggleShow } = useCounter();
+  const { text, array, handleChange, handleAdd } = useInputArray();
 
-  const [ count, setCount ] = useState(0);
-  const [ text, setText ] = useState("");
-  const [isShow, setIsShow] = useState(true);
-  const [array, setArray] = useState([]);
-
-  // useCallbackは第二引数が空配列の場合、再生成しない
-  const handleClick = useCallback((event) => {
-    console.log(count);
-    if(count < 10){
-      setCount((prevCount) => {
-        return prevCount + 1;
-      });
-    }
-  },[count]);
-
-  const handleChange = useCallback((event) => {
-    setText(event.target.value.trim());
-  },[text]);
-
-  const toggleShow = useCallback((event) => {
-    setIsShow((prevIsShow) => {
-      return !prevIsShow
-    });
-  },[isShow]);
-
-  useEffect(() => {
-    document.body.style.backgroundColor = "lightblue";
-    //アンマウント(コンポーネントが消滅)時の処理
-    return () => {
-      document.body.style.backgroundColor = "";
-    }
-  }, [count]);
-
-  const handleAdd = useCallback((event) => {
-    setArray((prevArray) => {
-
-      //破壊的メソッドはNG
-      // const newArray = prevArray;
-      // newArray.push(1);
-      if(prevArray.some((item) => item === text)){
-        alert("同じテキストが既に存在しています。");
-        return prevArray;
-      }
-      const newArray = [...prevArray, text]
-      console.log(newArray === prevArray);
-      return newArray
-    })
-  },[text])
+  useBgLightBlue();
 
   return (
     <div className={styles.container}>
@@ -67,9 +25,11 @@ export default function Home() {
       <Header />
 
       <div className={styles.directionColumn}>
+
         {isShow ? <h1>{count}</h1> : null}
         <button onClick={handleClick}>ボタン</button>
         <button onClick={toggleShow}>{isShow ? "非表示" : "表示"}</button>
+
         <input type="text" value={text} onChange={handleChange} />
         <button onClick={handleAdd}>追加</button>
         <ul>
