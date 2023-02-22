@@ -4,17 +4,19 @@ import styles from 'src/styles/Home.module.css'
 import { Header } from 'src/components/Header/index.jsx'
 import { Main } from 'src/components/Main/index.jsx'
 import { Footer } from 'src/components/Footer/index.jsx'
-import { useCounter } from 'src/hooks/useCounter'
-import { useInputArray } from 'src/hooks/useInputArray'
-import { useBgLightBlue } from 'src/hooks/useBgLightBlue'
 
-export default function Home() {
+export default function About(props) {
 
-  //カスタムフックの呼び出し
-  const { count, isShow, handleClick, toggleShow } = useCounter();
-  const { text, array, handleChange, handleAdd } = useInputArray();
-
-  useBgLightBlue();
+  const {
+    count,
+    isShow,
+    handleClick,
+    toggleShow,
+    text,
+    array,
+    handleChange,
+    handleAdd
+  } = props;
 
   return (
     <div className={styles.container}>

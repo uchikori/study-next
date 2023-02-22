@@ -6,7 +6,6 @@ export const useCounter = () => {
 
   // useCallbackは第二引数が空配列の場合、再生成しない
   const handleClick = useCallback((event) => {
-    console.log(count);
     if (count < 10) {
       setCount((prevCount) => {
         return prevCount + 1;
