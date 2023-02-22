@@ -11,13 +11,14 @@ export default function Home() {
   const [ count, setCount ] = useState(0);
   const [ text, setText ] = useState("");
   const [isShow, setIsShow] = useState(true);
+  const [array, setArray] = useState([]);
 
   // useCallbackは第二引数が空配列の場合、再生成しない
   const handleClick = useCallback((event) => {
     console.log(count);
     if(count < 10){
-      setCount((count) => {
-        return count + 1;
+      setCount((prevCount) => {
+        return prevCount + 1;
       });
     }
   },[count]);
@@ -27,8 +28,8 @@ export default function Home() {
   },[text]);
 
   const toggleShow = useCallback((event) => {
-    setIsShow((isShow) => {
-      return !isShow
+    setIsShow((prevIsShow) => {
+      return !prevIsShow
     });
   },[isShow]);
 
@@ -40,6 +41,22 @@ export default function Home() {
     }
   }, [count]);
 
+  const handleAdd = useCallback((event) => {
+    setArray((prevArray) => {
+
+      //破壊的メソッドはNG
+      // const newArray = prevArray;
+      // newArray.push(1);
+      if(prevArray.some((item) => item === text)){
+        alert("同じテキストが既に存在しています。");
+        return prevArray;
+      }
+      const newArray = [...prevArray, text]
+      console.log(newArray === prevArray);
+      return newArray
+    })
+  },[text])
+
   return (
     <div className={styles.container}>
       <Head>
@@ -49,10 +66,22 @@ export default function Home() {
 
       <Header />
 
-      { isShow ? <h1>{ count }</h1> : null }
-      <button onClick={ handleClick }>ボタン</button>
-      <button onClick={ toggleShow }>{ isShow ? "非表示" : "表示" }</button>
-      <input type="text" value={ text } onChange={ handleChange } />
+      <div className={styles.directionColumn}>
+        {isShow ? <h1>{count}</h1> : null}
+        <button onClick={handleClick}>ボタン</button>
+        <button onClick={toggleShow}>{isShow ? "非表示" : "表示"}</button>
+        <input type="text" value={text} onChange={handleChange} />
+        <button onClick={handleAdd}>追加</button>
+        <ul>
+          {array.map((item) => {
+            return (
+              <li key={item}>{item}</li>
+            )
+          })}
+        </ul>
+
+      </div>
+
 
       <Main fileName={"index"} />
       
